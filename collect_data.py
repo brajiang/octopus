@@ -32,8 +32,27 @@ with open("final_tentacle.csv") as file:
 
 clf = MLPClassifier(activation='tanh', tol=1e-4, warm_start='True', max_iter=1000)
 clf.fit(X,y)
-input("Enter latitude: ")
-input("Enter longitude: ")
+lat=input("Enter latitude: ")
+long=input("Enter longitude: ")
+#Used in coordCalc
+def ceiling(n):
+    if isinstance(n, int):
+        return int(n)
+    return int(n)+1
+
+minLat = 41.64460409
+maxLat = 42.02255356
+
+minLong = -87.92890945
+maxLong = -87.61072824
+
+width = maxLat - minLat
+length = maxLong - minLong
+#coordCalc takes a latitude and longitude and outputs which "block" the location is in
+def coordCalc(a,b):
+    x = ceiling((a-minLat)/(width/100)) 
+    y = ceiling((b - minLong)/(length/100))
+    return 100*(x-1) + y-1
 print("Crime risk is high")
 while(True):
     answer=input('What crime? Please use all caps, single quotes and type HELP if you need a list of available queries:  ')
@@ -43,7 +62,7 @@ while(True):
     else:
         break
 num=crimes.index(answer)
-predprob=(clf.predict_proba([[20,4,7549]]))
+predprob=(clf.predict_proba([[20,4,coordCalc(lat,long)]]))
 #predprob=(clf.predict_proba([[200,4,8549,]]))
 #print(predprob)
 sum=0
