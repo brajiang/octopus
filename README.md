@@ -1,5 +1,6 @@
 # octopus
 CMUHacks 2017 Project
 =======
-What if I told there was an app on the market that could give you eight different recipe for octopus?
-Kohit Ropparthy
+The main function in this repository is collect_data. It uses crime_data_final.csv as the training data. 
+
+asdfasfas
